@@ -17,6 +17,33 @@
     <h1>Outline of guide</h1>
       <h2>Installation</h2>
         <h3>VirtualBox instance setup</h3>
+          <h4>Create your own</h4>
+	  <p>
+	    It is a good learning exercise to make your own Linux
+	    images. If you are using Debian or Ubuntu, this is a
+	    superset of the <a href="dpkg.txt">list of packages you need</a>
+	    <a href="debtree.png"><code>.png</code></a>,
+	    <a href="debtree.dot"><code>.dot</code></a>). 
+
+	    <p> Note that
+	    this is a superset, some packages in this list are not
+	    necessary for running HBase, but I wanted to install them
+	    for some reason.
+
+	    <p>In essence you want a linux server install with:
+	      <ul>
+		<li>opensshd</li>
+		<li>maven2 (this will pull in Java)</li>
+		<li>krb5 (client)</li>
+		<li>krb5 (server) (for at least one machine
+		(the Ticket Granting instance)).</li>
+	      </ul>
+	    </p>
+	    <p>This is a small subset of what HBase needs, but when we
+	    run Maven (see <b>Compilation</b> below), it will pull in
+	    all of the remaining prerequisites and store them in
+	    your <code>~/.m2</code> directory.
+	  </p>
           <h4>Eugene's Virtualbox images download</h4>
       <h2>Compilation</h2>
       <h2>Debugging tools</h2>
