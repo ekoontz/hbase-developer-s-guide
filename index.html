@@ -14,54 +14,65 @@
     <h1>Introduction</h1>
     <p>
     </p>
-      <h1>Installation</h1>
-        <h2>VirtualBox instance setup</h2>
-          <h3>Create your own</h3>
-	  <p>
-	    It is a good learning exercise to make your own Linux
-	    images. If you are using Debian or Ubuntu, this is a
-	    superset of the <a href="dpkg.txt">list of packages you need</a>
-	    <a href="debtree.png"><code>.png</code></a>,
-	    <a href="debtree.dot"><code>.dot</code></a>). 
+    <h1>VirtualBox instance setup</h1>
+    <h2>Create your own</h2>
+    <p>
+      It is a good learning exercise to make your own Linux
+      images. If you are using Debian or Ubuntu, this is a
+      superset of the <a href="dpkg.txt">list of packages you
+	    need</a>.
+    </p>
+    
+    <h3>Basic Dependencies</h3>
+    
+    <p>In essence you want a linux server install with:
+      <ul>
+	<li>opensshd</li>
+	<li>maven2 (this will pull in Java)</li>
+      </ul>
+    </p>
+    <p>This is a small subset of what HBase needs, but when we
+      run Maven (see <b>Compilation</b> below), it will pull in
+      all of the remaining prerequisites and store them in
+      your <code>~/.m2</code> directory.
+    </p>
+    
+    <p> I would like to do a more thorough analysis of the
+      dependency graph in order to make the image and
+      comprehensible as possible. One of the packages with the
+      most dependencies might be <code>maven2</code>. Here is
+      the dependency graph for <code>maven2</code>:(
+      <a href="debtree.png"><code>.png</code></a>,
+      <a href="debtree.dot"><code>.dot</code></a>). 
+      
+    <p> Note that
+      this is a superset, some packages in this list are not
+      necessary for running HBase, but I wanted to install them
+      for some reason.
 
-	    <p> Note that
-	    this is a superset, some packages in this list are not
-	    necessary for running HBase, but I wanted to install them
-	    for some reason.
+      <h4>Kerberos dependencies</h4>
+      
+    <p>If you want to use the Secure HBase functionality
+      which is starting to become available, you will also want
+      to install:
+      <ul>
+	<li>krb5 (client)</li>
+	<li>krb5 (server) (for at least one machine
+	  (the Ticket Granting instance)).</li>
+	<li>DNS (server) for one machine</li>
+	<li>DNS (client) for other machines</li>
+	<li>NTP (server) for one machine</li>
+	<li>NTP (client) for other machines</li>
+      </ul>
+      
+      <h2>Eugene's Virtualbox images download</h2>
+      
+    <p>(add link to virtualbox images..hopefully won't be too
+      huge to host somewhere..)</p>
+    
+    <h1>HDFS Compilation</h1>
 
-	    <p>In essence you want a linux server install with:
-	      <ul>
-		<li>opensshd</li>
-		<li>maven2 (this will pull in Java)</li>
-	      </ul>
-	    </p>
-	    <p>This is a small subset of what HBase needs, but when we
-	    run Maven (see <b>Compilation</b> below), it will pull in
-	    all of the remaining prerequisites and store them in
-	    your <code>~/.m2</code> directory.
-	    </p>
-
-	    <p>If you want to use the Secure HBase functionality
-	    which is starting to become available, you will also want
-	    to install:
-	      <ul>
-		<li>krb5 (client)</li>
-		<li>krb5 (server) (for at least one machine
-		(the Ticket Granting instance)).</li>
-		<li>DNS (server) for one machine</li>
-		<li>DNS (client) for other machines</li>
-		<li>NTP (server) for one machine</li>
-		<li>NTP (client) for other machines</li>
-	      </ul>
-
-          <h3>Eugene's Virtualbox images download</h3>
-
-	  <p>(add link to virtualbox images..hopefully won't be too
-	  huge to host somewhere..)</p>
-
-      <h2>HDFS Compilation</h2>
-
-      <h3>Hadoop Git repository</h3>
+      <h2>Hadoop Git repository</h2>
 
       <p>Substitute your github username for <code>myuser</code> below:</p>
 
@@ -70,19 +81,19 @@
 	git clone http://github.com/myuser/hadoop-hdfs
       </pre>
 
-      <h2>HDFS Startup</h2>
-
-      <h3>Authentication (optional)</h3>
-
-      <p>This is required if you want to use Secure Hadoop and Secure HBase.</p>
-
-      <h2>HDFS Test</h2>
-
-      <h3>Authentication (optional)</h3>
-
-      <h2>HBase Compilation</h2>
+      <h1>HDFS Startup</h1>
       
-      <h3>HBase Git repository</h3>
+      <h2>Authentication (optional)</h2>
+      
+    <p>This is required if you want to use Secure Hadoop and Secure HBase.</p>
+    
+    <h1>HDFS Test</h1>
+    
+    <h2>Authentication (optional)</h2>
+    
+    <h1>HBase Compilation</h1>
+      
+      <h2>HBase Git repository</h2>
 
       <p>
       Substitute your github username for <code>myuser</code> below:
@@ -92,9 +103,9 @@
 	git clone http://github.com/myuser/hbase
       </pre>
 
-      <h3>HBase Startup</h3>
+      <h2>HBase Startup</h2>
 
-      <h4>Hadoop development <code>CLASSPATH</code> setting</h4>
+      <h3>Hadoop development <code>CLASSPATH</code> setting</h3>
 
       <p>This step allows you to control your Hadoop environment. For
       example, if you want to develop with Secure Hadoop, you'll want
