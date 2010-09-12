@@ -6,7 +6,7 @@
     
     <!-- For the less-enabled mobile browsers like Opera Mini -->
     <link rel="stylesheet" media="handheld" href="css/handheld.css?v=1">
-
+    <title>HBase Dev Guide</title>
   </head>
   <body>
     <h1>HBase Dev Guide</h1>
@@ -14,7 +14,7 @@
     <h1>Introduction</h1>
     <p>
     </p>
-    <h1>Outline of guide</h1>
+    <h1>HBase Dev Guide</h1>
       <h2>Installation</h2>
         <h3>VirtualBox instance setup</h3>
           <h4>Create your own</h4>
@@ -34,18 +34,83 @@
 	      <ul>
 		<li>opensshd</li>
 		<li>maven2 (this will pull in Java)</li>
-		<li>krb5 (client)</li>
-		<li>krb5 (server) (for at least one machine
-		(the Ticket Granting instance)).</li>
 	      </ul>
 	    </p>
 	    <p>This is a small subset of what HBase needs, but when we
 	    run Maven (see <b>Compilation</b> below), it will pull in
 	    all of the remaining prerequisites and store them in
 	    your <code>~/.m2</code> directory.
-	  </p>
+	    </p>
+
+	    <p>If you want to use the Secure HBase functionality
+	    which is starting to become available, you will also want
+	    to install:
+	      <ul>
+		<li>krb5 (client)</li>
+		<li>krb5 (server) (for at least one machine
+		(the Ticket Granting instance)).</li>
+		<li>DNS (server) for one machine</li>
+		<li>DNS (client) for other machines</li>
+		<li>NTP (server) for one machine</li>
+		<li>NTP (client) for other machines</li>
+	      </ul>
+
           <h4>Eugene's Virtualbox images download</h4>
-      <h2>Compilation</h2>
+
+	  <p>(add link to virtualbox images..hopefully won't be too
+	  huge to host somewhere..)</p>
+
+      <h2>HDFS Compilation</h2>
+
+      <h3>Hadoop Git repository</h3>
+
+      <p>Substitute your github username for <code>myuser</code> below:</p>
+
+      <pre class="block">
+	git clone http://github.com/myuser/hadoop-common
+	git clone http://github.com/myuser/hadoop-hdfs
+      </pre>
+
+      <h2>HDFS Startup</h2>
+
+      <h3>Authentication (optional)</h3>
+
+      <p>This is required if you want to use Secure Hadoop and Secure HBase.</p>
+
+      <h2>HDFS Test</h2>
+
+      <h3>Authentication (optional)</h3>
+
+      <h2>HBase Compilation</h2>
+      
+      <h3>HBase Git repository</h3>
+
+      <p>
+      Substitute your github username for <code>myuser</code> below:
+      </p>
+
+      <pre class="block">
+	git clone http://github.com/myuser/hbase
+      </pre>
+
+      <h3>HBase Startup</h3>
+
+      <h4>Hadoop development <code>CLASSPATH</code> setting</h4>
+
+      <p>This step allows you to control your Hadoop environment. For
+      example, if you want to develop with Secure Hadoop, you'll want
+      to explore the Hadoop/Kerberos communication, so you'll want to
+      make sure that HBase is using the Hadoop that you're looking at
+      in your Hadoop source directory (above)</p>
+
+      <p>Add the following to your bin/hbase:</p>
+
+      <pre class="block">
+	if [ "$DEV_MODE" = "1" ] ; then
+            CLASSPATH=~/hadoop-common/build/classes:~/hadoop-hdfs/build/classes:$CLASSPATH
+	fi
+      </pre>
+
       <h2>Debugging tools</h2>
     <p>
       I prefer Intellij IDEA rather than Eclipse, but would welcome
