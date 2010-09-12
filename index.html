@@ -1,0 +1,49 @@
+<html>
+  <head>
+    <!-- CSS : implied media="all" -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/hbase_dev_guide.css">
+    
+    <!-- For the less-enabled mobile browsers like Opera Mini -->
+    <link rel="stylesheet" media="handheld" href="css/handheld.css?v=1">
+
+  </head>
+  <body>
+    <h1>HBase Dev Guide</h1>
+    <h2>Author: Eugene Koontz et. al</h2>
+    <h1>Introduction</h1>
+    <p>
+    </p>
+    <h1>Outline of guide</h1>
+      <h2>Installation</h2>
+        <h3>VirtualBox instance setup</h3>
+          <h4>Eugene's Virtualbox images download</h4>
+      <h2>Compilation</h2>
+      <h2>Debugging tools</h2>
+    <p>
+      I prefer Intellij IDEA rather than Eclipse, but would welcome
+      someone writing an Eclipse guide and adding it here (using
+      CC:attribute licence).
+    </p>
+        <h3>Intellij</h3>
+
+
+        <h4>Intellij: Attaching to remote instances</h4>
+   
+	<p>
+	Intellij uses the Java debug machinery (enabled with):
+
+	<pre class="block">
+	  -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5006
+	</pre>
+	
+	<p>
+	to interactively debug Java processes running on remote
+	machines. This is great because it lets you run your desktop
+	operating system of choice (be it Mac OS X, Linux, or Windows)
+	as your development environment, but still run your compiled
+	runtime on Linux, which is required if you want to run HBase
+	according to its <a href="http://hbase.org/">official
+	Recommendations</a>.
+  </body>
+</html>
