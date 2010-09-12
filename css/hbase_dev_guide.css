@@ -1,6 +1,11 @@
-h1,h3 {
+h1 {
     float:left;
-    width:20%;
+    margin-left:1em;
+}
+
+h3 {
+    float:left;
+    width:30%;
 }
 
 h2,h4 {
@@ -16,7 +21,7 @@ p,ul {
 h1 {
     font-size:250%;
     padding:0;
-    padding-left:0;
+    padding-left:0.25em;
     padding-bottom:0.5em;
 }
 
