@@ -1,7 +1,22 @@
+h1,h3 {
+    float:left;
+    width:20%;
+}
+
+h2,h4 {
+    width:90%;
+    float:right;
+}
+
+p,ul {
+    width:80%;
+    float:right;
+}
+
 h1 {
     font-size:250%;
     padding:0;
-    padding-left:1em;
+    padding-left:0;
     padding-bottom:0.5em;
 }
 
@@ -10,6 +25,7 @@ h2 {
     padding:0;
     padding-left:2em;
     padding-bottom:0.5em;
+    margin-top:0.5em;
 }
 
 h3 {
@@ -37,11 +53,11 @@ ul {
 }
 
 pre.block {
+    float:left;
     margin-top:1.5em;
     margin-bottom:1.5em;
-    margin-left:5%;
-    padding-left:0.5em;
-    width:90%;
+    margin-left:15%;
+    width:75%;
     padding-top:0.5em;
     padding-bottom:0.5em;
     border:1px dashed #00ff33;
