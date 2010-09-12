@@ -1,50 +1,88 @@
+/* gradual shading */
+h1,h2,h3,h4 {
+    width:90%;
+    margin:2px;
+    padding-left:2px;
+}
+
 h1 {
+    background: #eee;
+    color:#000;
+}
+h2 {
+    background: #ccc;
+    color: #222;
+}
+h3 {
+    background: #aaa;
+    color: #444;
+}
+h4 {
+    background: #999;
+    color: #555;
+}
+
+p {
+    background:#eee;
+}
+
+
+h1 {
+    margin-left:15px;
     float:left;
-    margin-left:1em;
+    padding-right:25px;
+}
+
+h2 {
+    margin-left:20px;
+    padding-right:20px;
+    float:left;
 }
 
 h3 {
+    margin-left:25px;
+    padding-right:15px;
     float:left;
-    width:30%;
 }
 
-h2,h4 {
-    width:90%;
-    float:right;
+h4 {
+    margin-left:30px;
+    padding-right:10px;
+    float:left;
 }
 
-p,ul {
-    width:80%;
-    float:right;
+p {
+    padding-left:0.5em;
+    padding-top:0.5em;
+    padding-bottom:0.5em;
+    margin-left:30px;
+    padding-right:10px;
+    float:left;
+    margin-right:30pt;
+    width:70%;
+    margin-top:0.5em;
+    margin-bottom:0.5em;
+}
+
+ul {
+    float:left;
+    width:95%;
 }
 
 h1 {
     font-size:250%;
-    padding:0;
-    padding-left:0.25em;
-    padding-bottom:0.5em;
 }
 
 h2 {
     font-size:200%;
-    padding:0;
-    padding-left:2em;
-    padding-bottom:0.5em;
-    margin-top:0.5em;
 }
 
 h3 {
     font-size:150%;
-    padding:0;
-    padding-left:4em;
 }
 
 h4 {
     font-size:125%;
-    padding:0;
-    padding-top:1em;
-    padding-bottom:0.5em;
-    padding-left:5em;
 }
 
 p {
@@ -62,7 +100,6 @@ pre.block {
     margin-top:1.5em;
     margin-bottom:1.5em;
     margin-left:15%;
-    width:75%;
     padding-top:0.5em;
     padding-bottom:0.5em;
     border:1px dashed #00ff33;
