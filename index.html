@@ -12,8 +12,9 @@
     <h1 "text-align:center;width:100%;float:left">HBase Dev Guide</h1>
     <h2>Author: Eugene Koontz et. al.</h2>
     <h1>Introduction</h1>
-    <p>
-    </p>
+    <p>This guide is intended to help you get started with developing
+    with Hbase.</p>
+
     <h1>VirtualBox instance setup</h1>
     <h2>Create your own</h2>
     <p>
@@ -31,14 +32,16 @@
     
     <h3>Dependencies</h3>
     
-    <h4>Basic</h4>
-
-    <p>In essence you want a linux server install with:
-      <ul>
-	<li>opensshd</li>
-	<li>maven2 (this will pull in Java)</li>
-      </ul>
-    </p>
+    <p>In essence you want a linux server install with:</p>
+    <ul>
+      <li>opensshd</li>
+      <li>git (<code>apt-get install git core</code>)</li>
+      <li>JDK (<code>apt-get install default-jdk</code>)</li>
+      <li>Apache Maven (<code>apt-get install maven2</code>)</li>
+    </ul>
+    
+    <p> Note that ubuntu's <code>default-jdk</code> installs OpenJDK, although Hbase officially
+      recommends the Sun (now Oracle) JDK).</p>
 
     <p>This is a small subset of what HBase needs, but when we
       run Maven (see <b>Compilation</b> below), it will pull in
@@ -54,21 +57,6 @@
       <a href="maven2.png"><code>.png</code></a>,
       <a href="maven2.dot"><code>.dot</code></a>). 
     </p>
-
-      <h4>Kerberos dependencies</h4>
-      
-    <p>If you want to use the Secure HBase functionality
-      which is starting to become available, you will also want
-      to install:
-      <ul>
-	<li>krb5 (client)</li>
-	<li>krb5 (server) (for at least one machine
-	  (the Ticket Granting instance)).</li>
-	<li>DNS (server) for one machine</li>
-	<li>DNS (client) for other machines</li>
-	<li>NTP (server) for one machine</li>
-	<li>NTP (client) for other machines</li>
-      </ul>
       
       <h2>Eugene's Virtualbox images download</h2>
       
@@ -77,6 +65,29 @@
 
 
     <h1>Kerberos setup (optional)</h1>
+
+    <h2>Kerberos dependencies</h2>
+    
+    <p>If you want to use the Secure HBase functionality
+      which is starting to become available, you will also want
+      to install:</p>
+
+    <ul>
+      <li>krb5 (client)</li>
+      <li>krb5 (server) (for at least one machine
+	(the Ticket Granting instance)).</li>
+      <li>DNS (server) for one machine</li>
+      <li>DNS (client) for other machines</li>
+      <li>NTP (server) for one machine</li>
+      <li>NTP (client) for other machines</li>
+    </ul>
+
+    <h2>Kerberos setup</h2>
+    <h3>Kerberos Realm and Admin Server</h3>
+    <p>You could install the Realm and Admin server on separate
+    servers, but we'll just install them both on one for simplicity of
+    explanation. Do: <code>apt-get install krb5-server</code>
+    </p>
 
     <img src="realm_servers.png"/>
     <img src="realm.png"/>
@@ -159,5 +170,19 @@
 	runtime on Linux, which is required if you want to run HBase
 	according to its <a href="http://hbase.org/">official
 	Recommendations</a>.
+
+
+	<h1>Testing</h1>
+
+	<p>As you add new functionality to Hbase, be sure to add tests
+	to the <code>src/tests</code> directory, and to make sure
+	existing tests pass, using <code>mvn test</code>.</p>
+
+	<h2>Using EC2 for testing</h2>
+	<p>Running all unit tests takes a long time; therefore, you
+	might want a fast, dedicated server, or on Amazon EC2 large
+	(or better) instance.</p>
+
+
   </body>
 </html>
