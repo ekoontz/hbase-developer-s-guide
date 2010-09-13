@@ -105,3 +105,7 @@ pre.block {
     border:1px dashed #00ff33;
     background:#33ff99;
 }
+
+img {
+    margin:1em;
+}
