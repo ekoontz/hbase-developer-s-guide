@@ -6,24 +6,20 @@ h1,h2,h3,h4 {
 }
 
 h1 {
-    background: #eee;
-    color:#000;
+    background: #BAE6AE;
 }
 h2 {
-    background: #ccc;
-    color: #222;
+    background: #EBE5C3;
 }
 h3 {
-    background: #aaa;
-    color: #444;
+    background: #BAE6AE;
 }
 h4 {
-    background: #999;
-    color: #555;
+    background: #EBE5C3;
 }
 
 p {
-    background:#eee;
+    background:#CBEDFF;
 }
 
 
