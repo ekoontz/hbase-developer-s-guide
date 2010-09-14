@@ -10,13 +10,45 @@
   </head>
   <body>
     <h1 "text-align:center;width:100%;float:left">HBase Dev Guide</h1>
-    <h2>Author: Eugene Koontz et. al.</h2>
+    <h4>Author: Eugene Koontz et. al.</h4>
     <h1>Introduction</h1>
     <p>This guide is intended to help you get started with developing
     with Hbase.</p>
 
-    <h1>VirtualBox instance setup</h1>
-    <h2>Create your own</h2>
+    <h1>Dependencies</h1>
+    
+    <p>HBase typically runs on large clusters of servers, but to get started developing, I found it best to start with a single linux server install. The installed package base is minimal:</p>
+    <ul>
+      <li>opensshd</li>
+      <li>git (<code>apt-get install git-core</code>)</li>
+      <li>JDK (<code>apt-get install default-jdk</code>)</li>
+      <li>Apache Maven (<code>apt-get install maven2</code>)</li>
+    </ul>
+    
+    <p> Note that ubuntu's <code>default-jdk</code> installs OpenJDK, although Hbase officially
+      recommends the Sun (now Oracle) JDK).</p>
+
+    <p>In fact, the above list is only a small subset of what HBase
+      needs, but everything else will be pulled in when we run Maven
+      (see <b>Compilation</b> below), it will pull in all of the
+      remaining prerequisites and store them in
+      your <code>~/.m2</code> directory.
+    </p>
+    
+    <p> I would like to do a more thorough analysis of the
+      dependency graph in order to make the image and
+      comprehensible as possible. It might be that you could start with a very small linux image, smaller than the default Debian server install.</p>
+
+    <p>Note however that Maven requires quite a lot; here is
+      the dependency graph for <code>maven2</code>:(
+      <a href="maven2.png"><code>.png</code></a>,
+      <a href="maven2.dot"><code>.dot</code></a>). 
+    </p>
+
+
+    <h1>VirtualBox</h1>
+    <h2>VirtualBox From Scratch</h2>
+    <p><i>This section takes its name from the <a href="http://linuxfromscratch.org">similarly-named Linux distribution</a></i>.</p>
     <p>
       It is a good learning exercise to make your own Linux
       images. If you are using Debian or Ubuntu, this is a
@@ -29,44 +61,20 @@
       necessary for running HBase, but I wanted to install them
       for some reason.
     </p>
-    
-    <h3>Dependencies</h3>
-    
-    <p>In essence you want a linux server install with:</p>
-    <ul>
-      <li>opensshd</li>
-      <li>git (<code>apt-get install git core</code>)</li>
-      <li>JDK (<code>apt-get install default-jdk</code>)</li>
-      <li>Apache Maven (<code>apt-get install maven2</code>)</li>
-    </ul>
-    
-    <p> Note that ubuntu's <code>default-jdk</code> installs OpenJDK, although Hbase officially
-      recommends the Sun (now Oracle) JDK).</p>
 
-    <p>This is a small subset of what HBase needs, but when we
-      run Maven (see <b>Compilation</b> below), it will pull in
-      all of the remaining prerequisites and store them in
-      your <code>~/.m2</code> directory.
-    </p>
-    
-    <p> I would like to do a more thorough analysis of the
-      dependency graph in order to make the image and
-      comprehensible as possible. One of the packages with the
-      most dependencies might be <code>maven2</code>. Here is
-      the dependency graph for <code>maven2</code>:(
-      <a href="maven2.png"><code>.png</code></a>,
-      <a href="maven2.dot"><code>.dot</code></a>). 
-    </p>
-      
-      <h2>Eugene's Virtualbox images download</h2>
+    <h2>Eugene's Virtualbox images download</h2>
       
     <p>(add link to virtualbox images..hopefully won't be too
       huge to host somewhere..)</p>
 
 
-    <h1>Kerberos setup (optional)</h1>
+    <h1>Amazon EC2</h1>
 
-    <h2>Kerberos dependencies</h2>
+    <p>Start with a recent Ubuntu such as <code>ami-04aa5f6d</code>.</p>
+
+    <h1>Kerberos integration (optional)</h1>
+
+    <h2>Dependencies</h2>
     
     <p>If you want to use the Secure HBase functionality
       which is starting to become available, you will also want
@@ -82,8 +90,8 @@
       <li>NTP (client) for other machines</li>
     </ul>
 
-    <h2>Kerberos setup</h2>
-    <h3>Kerberos Realm and Admin Server</h3>
+    <h2>Setup</h2>
+    <h3>Realm and Admin Server</h3>
     <p>You could install the Realm and Admin server on separate
     servers, but we'll just install them both on one for simplicity of
     explanation. Do: <code>apt-get install krb5-server</code>
@@ -93,6 +101,10 @@
     <img src="realm.png"/>
     <img src="admin_server.png"/>
     
+    <h3>Clients</h3>
+    <p>Do this on all machines in your cluster that you will host your
+    datanodes and regionservers.</p>
+
     <h1>HDFS Compilation</h1>
 
       <h2>Hadoop Git repository</h2>
