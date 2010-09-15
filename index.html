@@ -17,9 +17,21 @@
 
     <h1 id="dependencies">Dependencies</h1>
     
-    <p>HBase typically runs on large clusters of servers, but to get started developing, I found it best to start with a single linux server install. The installed package base is small:</p>
+    <p>HBase typically runs on large clusters of servers, but to get
+    started developing, you really only need one linux server
+    instance. The installed package base is fairly small. Below, I
+    analyze the dependencies according to machine roles.</p>
+
+    <h2>Zookeeper role</h2>
+
+    <p>Unless you are doing development on Zookeeper, just run
+    zookeeper on the same server instance used for
+    the <a href="#masterrole">Master role</a>.</p>
 
     <h2>Slave role</h2>
+
+    <p>The slave runs the regionserver.</p>
+
     <ul>
       <li>opensshd</li>
       <li>git (<code>apt-get install git-core</code>)</li>
@@ -30,7 +42,15 @@
     </ul>
 
     <h2 id="masterrole">Master role</h2>
-    <p>Everything from the Slave role plus:</p>
+
+    <p>The master runs the Hbase server. Also, you might want to run
+    Zookeeper there. Also if you want to develop with Kerberos, you
+    might as well run the Kerberos Key KDC and Admin servers, too. On
+    a real cluster, you'd run these separately, but this is to
+    simplify things so that you can concentrate on HBase development.</p>
+
+    <p>The master role requires everything from the Slave role
+    plus:</p>
     <ul>
       <li>ntpd</li>
       <li>bind9</li>
@@ -44,9 +64,14 @@
     I'm disconnected from the Internet.</p>
 
 
-    <h2>Remarks</h2>
+    <h2>Dependencies: Remarks</h2>
 
-    <p>In fact, the above lists are only a small subset of what HBase
+    <p>As stated above, to get started with Hbase development, you only really need to
+    have one machine that functions in both slave and master roles,
+    but keep in mind that real Hbase clusters will have one master and
+    many slaves.</p>
+
+    <p>The above lists are only a small subset of what HBase
       needs, but everything else will be pulled in when we run Maven
       (see <b>Compilation</b> below), it will pull in all of the
       remaining prerequisites and store them in
