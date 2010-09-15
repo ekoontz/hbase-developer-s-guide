@@ -15,86 +15,89 @@
     <p>This guide is intended to help you get started with developing
     with Hbase.</p>
 
-    <h1>Dependencies</h1>
+    <h1 id="dependencies">Dependencies</h1>
     
-    <p>HBase typically runs on large clusters of servers, but to get started developing, I found it best to start with a single linux server install. The installed package base is minimal:</p>
+    <p>HBase typically runs on large clusters of servers, but to get started developing, I found it best to start with a single linux server install. The installed package base is small:</p>
+
+    <h2>Slave role</h2>
     <ul>
       <li>opensshd</li>
       <li>git (<code>apt-get install git-core</code>)</li>
       <li>JDK (<code>apt-get install default-jdk</code>)</li>
       <li>Apache Maven (<code>apt-get install maven2</code>)</li>
+      <li>krb5-user (if using Kerberos)</li>
+      <li>ntpdate</li>
     </ul>
-    
-    <p> Note that ubuntu's <code>default-jdk</code> installs OpenJDK, although Hbase officially
-      recommends the Sun (now Oracle) JDK).</p>
 
-    <p>In fact, the above list is only a small subset of what HBase
+    <h2 id="masterrole">Master role</h2>
+    <p>Everything from the Slave role plus:</p>
+    <ul>
+      <li>ntpd</li>
+      <li>bind9</li>
+      <li>krb5-kdc (if using Kerberos)</li>
+      <li>krb5-admin-server (if using Kerberos)</li>
+    </ul>
+
+    <p>If you have a reliable connection to existing DNS and NTPd
+    servers, you can skip ntpd and bind9. Personally I am sometimes
+    traveling and I like to keep my VirtualBox cluster running when
+    I'm disconnected from the Internet.</p>
+
+
+    <h2>Remarks</h2>
+
+    <p>In fact, the above lists are only a small subset of what HBase
       needs, but everything else will be pulled in when we run Maven
       (see <b>Compilation</b> below), it will pull in all of the
       remaining prerequisites and store them in
       your <code>~/.m2</code> directory.
     </p>
     
+    <p> Note that ubuntu's <code>default-jdk</code> installs OpenJDK,
+      although Hbase officially recommends what people call the
+      "<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk6-jsp-136632.html">Sun
+      JDK</a>", although now it's owned by Oracle.</p>
+    
     <p> I would like to do a more thorough analysis of the
       dependency graph in order to make the image and
       comprehensible as possible. It might be that you could start with a very small linux image, smaller than the default Debian server install.</p>
 
-    <p>Note however that Maven requires quite a lot; here is
-      the dependency graph for <code>maven2</code>:(
+    <p>Note however that Maven itself requires quite a lot in order to
+      install it. Here is the dependency graph
+      for <code>maven2</code>: <br/>(
       <a href="maven2.png"><code>.png</code></a>,
       <a href="maven2.dot"><code>.dot</code></a>). 
     </p>
 
 
     <h1>VirtualBox</h1>
-    <h2>VirtualBox From Scratch</h2>
+    <h2>VBox From Scratch</h2>
     <p><i>This section takes its name from the <a href="http://linuxfromscratch.org">similarly-named Linux distribution</a></i>.</p>
     <p>
       It is a good learning exercise to make your own Linux
-      images. If you are using Debian or Ubuntu, this is a
-      superset of the <a href="dpkg.txt">list of packages you
-	    need</a>.
+      images. Create both "master" and "slave" images using the dependency lists for each shown in <a href="#dependencies">Dependencies</a>.
     </p>
 
-    <p> Note that
-      this is a superset, some packages in this list are not
-      necessary for running HBase, but I wanted to install them
-      for some reason.
-    </p>
-
+    <div style="display:none">
+      <!-- hide 'til working.. 
     <h2>Eugene's Virtualbox images download</h2>
       
     <p>(add link to virtualbox images..hopefully won't be too
       huge to host somewhere..)</p>
-
-
+-->
+    </div>
     <h1>Amazon EC2</h1>
 
     <p>Start with a recent Ubuntu such as <code>ami-04aa5f6d</code>.</p>
 
     <h1>Kerberos integration (optional)</h1>
 
-    <h2>Dependencies</h2>
-    
-    <p>If you want to use the Secure HBase functionality
-      which is starting to become available, you will also want
-      to install:</p>
-
-    <ul>
-      <li>krb5 (client)</li>
-      <li>krb5 (server) (for at least one machine
-	(the Ticket Granting instance)).</li>
-      <li>DNS (server) for one machine</li>
-      <li>DNS (client) for other machines</li>
-      <li>NTP (server) for one machine</li>
-      <li>NTP (client) for other machines</li>
-    </ul>
-
     <h2>Setup</h2>
     <h3>Realm and Admin Server</h3>
     <p>You could install the Realm and Admin server on separate
     servers, but we'll just install them both on one for simplicity of
-    explanation. Do: <code>apt-get install krb5-server</code>
+    explanation. Make sure your designated server has the related
+    Kerberos server-related software installed (see <a href="#masterrole">Dependencies/Master role</a>).
     </p>
 
     <img src="realm_servers.png"/>
@@ -123,6 +126,16 @@
     <p>This is required if you want to use Secure Hadoop and Secure HBase.</p>
     
     <h1>HDFS Test</h1>
+
+    <p>Check to make sure your HDFS installation is working:</p>
+
+    <pre class="block session">
+ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -lsr  hdfs://ubuntu.foofers.org/
+ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -mkdir  hdfs://ubuntu.foofers.org/foo
+ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -lsr  hdfs://ubuntu.foofers.org/
+drwxr-xr-x   - ekoontz supergroup          0 2010-09-14 20:11 /foo
+ekoontz@ubuntu:~/hadoop$ 
+    </pre>
     
     <h2>Authentication (optional)</h2>
     
@@ -140,7 +153,7 @@
 
       <h2>HBase Startup</h2>
 
-      <h3>Hadoop development <code>CLASSPATH</code> setting</h3>
+      <h3 id="devmode">Hadoop development <code>CLASSPATH</code> setting</h3>
 
       <p>This step allows you to control your Hadoop environment. For
       example, if you want to develop with Secure Hadoop, you'll want
@@ -156,16 +169,86 @@
 	fi
       </pre>
 
+      <h1>Development Cycle</h1>
+      
+      <p>Your development session with Hbase might look something like
+      the following. Suppose you are working on developing a feature
+      on the HBase Master's functionality.</p>
+
+      <ol>
+	<li><a href="#edit">edit code</a></li>
+	<li><a href="#compile">compile</a></li>
+	<li><a href="#run">start up regionserver</a> with <a href="#devmode">DEV_MODE=1</a></li>
+	<li><a href="#run">start up master</a> with <a href="#devmode">DEV_MODE=1</a> and with the appropriate <a href="#attach">JVM settings to enable attachment</a>: it waits for for a debugger to attach to it.</li>
+	<li>attach to master with debugger: it starts running and connects to zookeeper and the regionserver.</li>
+	<li>set some breakpoints in debugger</li>
+	<li>cause something to happen that causes the Master to execute within the code where you've set breakpoints. For example, if you've set some breakpoints in <code>HMaster:CreateTable()</code>, you might start up a <code>hbase shell</code> and then do a <code>create table</code>.</li>
+	<li>wait for breakpoint to be hit in debugger</li>
+	<li>step through code</li>
+	<li>based on your runtime debugging inspection, decide what you want to change in the code</li>
+	<li>kill the master and regionserver by doing control-C in each service's shell.</li>
+	<li>if desired, <a href="#reinit">re-initialize the <code>hbase/</code> directory in HDFS</a>.
+	<li>goto step 1</li>
+      </ol>
+
+      <h2 id="edit">Editing code</h2>
+
+      <p>Use whatever editor you like but you should respect
+      the <a href="">Hbase coding conventions</a>. Here are some links
+      to documentation for various popular editors and how to
+      configure them to respect these conventions.</p>
+
+      <h2 id="compile">Compilation</h2>
+
+      <p>
+      In a shell, you can leave the following running while you work on your code:
+      </p>
+
+      <pre class="block">
+while ( true ) do mvn compile && sleep 5 ; done
+      </pre>
+
+      <p>This ensures that you always have the latest code compiled and ready to run, and you'll notice compiler errors as you follow the output in one window, while editing your code in another window.</p>
+
+      <p>Note that we do only <code>mvn compile</code>: only the <code>.class</code>es are generated, not <code>.jar</code>s.
+
+	<h2 id="run">Running Hbase daemons</h2>
+
+	<h3>Master</h3>
+	<pre class="block session">
+	  bin/hbase master start
+	</pre>
+
+	<h3>Regionserver</h3>
+	<pre class="block session">
+	  bin/hbase regionserver start
+	</pre>
+
+      <p>
+	For development purposes, you only need one master and one
+	regionserver. Each of these should be run in a separate shell.
+	If you press <code>control-C</code> in one of these shells,
+	you'll send a terminate signal to the respective service,
+	which is good, so that you can easily stop and start the service</a>.
+
+      <h2 id="reinit">Reinitialize <code>hbase/</code></h2>
+      
+      <p>You may from time to time want to wipe your HBase data directory (on HDFS) clean in between debugging runs. Here's how:</p>
+      
+      <pre class="block session">
+ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -rmr hdfs://ubuntu.foofers.org/hbase
+      </pre>
+
       <h1>Runtime inspection of HBase</h1>
     <p>
-      I prefer Intellij IDEA rather than Eclipse, but would welcome
+      I prefer <a href="http://www.jetbrains.com/idea/">Intellij IDEA</a> rather than <a href="http://eclipse.org">Eclipse</a>, but would welcome
       someone writing an Eclipse guide and adding it here (using
       CC:attribute licence).
     </p>
         <h2>Intellij</h2>
 
 
-        <h3>Intellij: Attaching to remote instances</h3>
+        <h3 id="attach">Intellij: Attaching to remote instances</h3>
    
 	<p>
 	Intellij uses the Java debug machinery (enabled with):
@@ -182,13 +265,24 @@
 	runtime on Linux, which is required if you want to run HBase
 	according to its <a href="http://hbase.org/">official
 	Recommendations</a>.
+	</p>
 
+	<p>Note, however, that you will not be able to compile within
+	Intellij: you must open a shell on the machine you want to run
+	HBase on, and run <code>mvn compile</code> there.
+	</p>
 
-	<h1>Testing</h1>
+	<h1>Automated Testing</h1>
 
 	<p>As you add new functionality to Hbase, be sure to add tests
 	to the <code>src/tests</code> directory, and to make sure
 	existing tests pass, using <code>mvn test</code>.</p>
+
+	<p>Let's say you've just added a new class, <code>org.apache.hadoop.hbase.ipc.foo</code>. Your test should probably go in <code>hbase/src/test/java/ipc/TestFoo.java</code>. You'll be iteratively running your test and want to only run that test until it's ready to commit. To cause Maven to only run your test, you would do:</p>
+
+	<pre class="block">
+	  mvn -Dtest=TestFoo test
+	</pre>
 
 	<h2>Using EC2 for testing</h2>
 	<p>Running all unit tests takes a long time; therefore, you
