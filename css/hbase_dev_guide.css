@@ -45,24 +45,28 @@ h4 {
     margin-left:30px;
     padding-right:10px;
     float:left;
+    width:90%;
 }
 
 p {
     padding-left:0.5em;
     padding-top:0.5em;
     padding-bottom:0.5em;
-    margin-left:30px;
-    padding-right:10px;
+    padding-right:1em;
     float:left;
-    margin-right:30pt;
-    width:70%;
-    margin-top:0.5em;
-    margin-bottom:0.5em;
+    margin-left:0;
+    margin-right:0;
+    margin-top:1em;
+    margin-bottom:1em;
+    width:85%;
 }
 
-ul {
+ul,ol {
     float:left;
-    width:95%;
+    width:75%;
+    margin-left:12%;
+    margin-top:0.5em;
+    margin-bottom:0.5em;
 }
 
 h1 {
@@ -85,12 +89,6 @@ p {
     margin-left:10%;
 }
 
-ul {
-    margin-left:12%;
-    margin-top:0.5em;
-    margin-bottom:0.5em;
-}
-
 pre.block {
     float:left;
     margin-top:1.5em;
@@ -100,6 +98,10 @@ pre.block {
     padding-bottom:0.5em;
     border:1px dashed #00ff33;
     background:#33ff99;
+}
+
+pre.session {
+    background:#EBE5C3;
 }
 
 img {
