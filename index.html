@@ -155,9 +155,9 @@
     <p>Check to make sure your HDFS installation is working:</p>
 
     <pre class="block session">
-ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -lsr  hdfs://ubuntu.foofers.org/
-ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -mkdir  hdfs://ubuntu.foofers.org/foo
-ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -lsr  hdfs://ubuntu.foofers.org/
+ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -lsr hdfs://namenode/
+ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -mkdir hdfs://namenode/foo
+ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -lsr hdfs://namenode/
 drwxr-xr-x   - ekoontz supergroup          0 2010-09-14 20:11 /foo
 ekoontz@ubuntu:~/hadoop$ 
     </pre>
@@ -254,7 +254,7 @@ while ( true ) do mvn compile && sleep 5 ; done
 	regionserver. Each of these should be run in a separate shell.
 	If you press <code>control-C</code> in one of these shells,
 	you'll send a terminate signal to the respective service,
-	which is good, so that you can easily stop and start the service</a>.
+	which is good, so that you can easily stop and start the services</a>.
 
       <h2 id="reinit">Reinitializing</h2> 
 
