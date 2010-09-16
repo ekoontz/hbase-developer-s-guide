@@ -256,13 +256,30 @@ while ( true ) do mvn compile && sleep 5 ; done
 	you'll send a terminate signal to the respective service,
 	which is good, so that you can easily stop and start the service</a>.
 
-      <h2 id="reinit">Reinitialize <code>hbase/</code></h2>
+      <h2 id="reinit">Reinitializing</h2> 
+
+      <p>In between debugging runs, you may want to reset your Hbase
+      to clear any state left by your debugging session.  Note that
+      you'll confuse and probably terminate your Hbase master and
+      regionserver if you do either of these while they are running.</p>
+
+      <h3>Hbase</h3>
       
-      <p>You may from time to time want to wipe your HBase data directory (on HDFS) clean in between debugging runs. Here's how:</p>
+      <p>This will wipe your HBase data directory (on HDFS) clean:</p>
       
       <pre class="block session">
-ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -rmr hdfs://ubuntu.foofers.org/hbase
+ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -rmr hdfs://namenode/hbase
       </pre>
+      
+      <p>Where <code>namenode</code> is the hostname of your namenode.</p>
+
+      <h3>Zookeeper</h3>
+      <pre class="block session">
+ekoontz@ubuntu:~$ zookeeper/bin/zkCli.sh -server zookeeper rmr /hbase
+      </pre>
+
+      <p>Where <code>zookeeper</code> is the hostname of your
+      zookeeper.</p>
 
       <h1>Runtime inspection of HBase</h1>
     <p>
