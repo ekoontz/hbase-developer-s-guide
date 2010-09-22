@@ -107,3 +107,12 @@ pre.session {
 img {
     margin:1em;
 }
+
+span.output {
+    padding-left:2em;
+    font-style:italic;
+}
+
+span.input {
+    font-weight:bold;
+}
