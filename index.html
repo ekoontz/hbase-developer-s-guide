@@ -139,9 +139,11 @@
 
       <p>Substitute your github username for <code>myuser</code> below:</p>
 
-      <pre class="block">
-	git clone http://github.com/myuser/hadoop-common
-	git clone http://github.com/myuser/hadoop-hdfs
+      <pre class="block session">
+	[~]$ <span class="input">git clone http://github.com/myuser/hadoop-common</span>
+        <span class="output">git output</span>
+        [~]$ <span class="input">git clone http://github.com/myuser/hadoop-hdfs</span>
+        <span class="output">git output</span>
       </pre>
 
       <h1>HDFS Startup</h1>
@@ -155,17 +157,17 @@
     <p>Check to make sure your HDFS installation is working:</p>
 
     <pre class="block session">
-ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -lsr hdfs://namenode/
-ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -mkdir hdfs://namenode/foo
-ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -lsr hdfs://namenode/
+[~/hadoop] $ <span class="input">bin/hadoop fs -lsr hdfs://namenode/</span>
+[~/hadoop] $ <span class="input">bin/hadoop fs -mkdir hdfs://namenode/foo</span>
+ekoontz@ubuntu:~/hadoop$ <span class="input">bin/hadoop fs -lsr hdfs://namenode/</span>
 drwxr-xr-x   - ekoontz supergroup          0 2010-09-14 20:11 /foo
-ekoontz@ubuntu:~/hadoop$ 
+[~/hadoop] $ 
     </pre>
 
     <p>Another good test is <code>dfsadmin -report</code></p>
 
     <pre class="block session">
-ekoontz@ubuntu:~/hadoop$ bin/hadoop dfsadmin -fs hdfs://ubuntu/   -report
+[~/hadoop] $ <span class="input">bin/hadoop dfsadmin -fs hdfs://ubuntu/   -report</span>
 Configured Capacity: 23296315392 (21.7 GB)
 Present Capacity: 9946144768 (9.26 GB)
 DFS Remaining: 9946058752 (9.26 GB)
@@ -223,8 +225,8 @@ Last contact: Wed Sep 22 00:30:28 PDT 2010
       Substitute your github username for <code>myuser</code> below:
       </p>
 
-      <pre class="block">
-	git clone http://github.com/myuser/hbase
+      <pre class="block session">
+	<span class="input">git clone http://github.com/myuser/hbase</span>
       </pre>
 
       <h2>HBase Startup</h2>
@@ -281,7 +283,7 @@ Last contact: Wed Sep 22 00:30:28 PDT 2010
       </p>
 
       <pre class="block">
-while ( true ) do mvn compile && sleep 5 ; done
+<span class="input">while ( true ) do mvn compile && sleep 5 ; done</span>
       </pre>
 
       <p>This ensures that you always have the latest code compiled and ready to run, and you'll notice compiler errors as you follow the output in one window, while editing your code in another window.</p>
