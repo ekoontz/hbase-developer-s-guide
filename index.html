@@ -160,13 +160,7 @@
 [~/hadoop] $ <span class="input">bin/hadoop fs -mkdir hdfs://namenode/foo</span>
 ekoontz@ubuntu:~/hadoop$ <span class="input">bin/hadoop fs -lsr hdfs://namenode/</span>
 drwxr-xr-x   - ekoontz supergroup          0 2010-09-14 20:11 /foo
-[~/hadoop] $ 
-    </pre>
-
-    <p>Another good test is <code>dfsadmin -report</code></p>
-
-    <pre class="block session">
-[~/hadoop] $ <span class="input">bin/hadoop dfsadmin -fs hdfs://ubuntu/   -report</span>
+[~/hadoop] $ <span class="input">bin/hadoop dfsadmin -fs hdfs://namenode/   -report</span>
 Configured Capacity: 23296315392 (21.7 GB)
 Present Capacity: 9946144768 (9.26 GB)
 DFS Remaining: 9946058752 (9.26 GB)
