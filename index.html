@@ -161,6 +161,57 @@ ekoontz@ubuntu:~/hadoop$ bin/hadoop fs -lsr hdfs://namenode/
 drwxr-xr-x   - ekoontz supergroup          0 2010-09-14 20:11 /foo
 ekoontz@ubuntu:~/hadoop$ 
     </pre>
+
+    <p>Another good test is <code>dfsadmin -report</code></p>
+
+    <pre class="block session">
+ekoontz@ubuntu:~/hadoop$ bin/hadoop dfsadmin -fs hdfs://ubuntu/   -report
+Configured Capacity: 23296315392 (21.7 GB)
+Present Capacity: 9946144768 (9.26 GB)
+DFS Remaining: 9946058752 (9.26 GB)
+DFS Used: 86016 (84 KB)
+DFS Used%: 0%
+Under replicated blocks: 0
+Blocks with corrupt replicas: 0
+Missing blocks: 0
+
+-------------------------------------------------
+Datanodes available: 3 (3 total, 0 dead)
+
+Name: 192.168.56.20:50010
+Decommission Status : Normal
+Configured Capacity: 7765438464 (7.23 GB)
+DFS Used: 28672 (28 KB)
+Non DFS Used: 3714699264 (3.46 GB)
+DFS Remaining: 4050710528(3.77 GB)
+DFS Used%: 0%
+DFS Remaining%: 52.16%
+Last contact: Wed Sep 22 00:30:29 PDT 2010
+
+
+Name: 192.168.56.30:50010
+Decommission Status : Normal
+Configured Capacity: 7765438464 (7.23 GB)
+DFS Used: 28672 (28 KB)
+Non DFS Used: 2648248320 (2.47 GB)
+DFS Remaining: 5117161472(4.77 GB)
+DFS Used%: 0%
+DFS Remaining%: 65.9%
+Last contact: Wed Sep 22 00:30:28 PDT 2010
+
+
+Name: 192.168.56.10:50010
+Decommission Status : Normal
+Configured Capacity: 7765438464 (7.23 GB)
+DFS Used: 28672 (28 KB)
+Non DFS Used: 6987223040 (6.51 GB)
+DFS Remaining: 778186752(742.14 MB)
+DFS Used%: 0%
+DFS Remaining%: 10.02%
+Last contact: Wed Sep 22 00:30:28 PDT 2010
+
+    </pre>
+      
     
     <h2>Authentication (optional)</h2>
     
@@ -335,7 +386,8 @@ ekoontz@ubuntu:~$ zookeeper/bin/zkCli.sh -server zookeeper rmr /hbase
 
         <h2>HDFS</h2>
 
-        <h3>Hadoop Filesystem Corruption: <code>InconsistentFSStateException</code></h2>
+        <h3>Hadoop Filesystem Corruption: <code>InconsistentFSStateException</code></h3>
+
         <p>
           This might happen if you shut down all of of your Hadoop
           namenodes and datanodes, and then try to bring them up again by doing:
@@ -349,12 +401,14 @@ ekoontz@ubuntu:~$ zookeeper/bin/zkCli.sh -server zookeeper rmr /hbase
         <a href="inconsistentfsstate.png"><img src="inconsistentfsstate.png"/></a>
 
         <h4>Solution</h4>
-        <code>rm -rf /tmp/hadoop-$USER</code>
+
+        <p><code>rm -rf /tmp/hadoop-$USER</code></p>
 
         <h3>Hadoop Filesystem <code>'Incompatible build' errors at startup</code></h3>
 
         <h4>Solution</h4>
-        <code>rm -rf /tmp/hadoop-$USER</code>
+
+        <p><code>rm -rf /tmp/hadoop-$USER</code></p>
 
   </body>
 </html>
