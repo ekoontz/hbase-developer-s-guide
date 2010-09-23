@@ -15,6 +15,54 @@
     <p>This guide is intended to help you get started with developing
     with Hbase.</p>
 
+    <div class="figure">
+      <h3>HBase Development Node Stacks</h3>
+      <table>
+        <tr>
+          <th colspan="2">master</th>
+
+          <th>slave</th>
+        </tr>
+        <tr>
+          <td colspan="2">HBase master</td>
+
+          <td>HBase regionserver</td>
+        </tr>
+        <tr>
+          <td>HDFS namenode</td>
+          <td>Zookeeper</td>
+
+          <td>HDFS datanode</td>
+        </tr>
+
+        <tr>
+          <td colspan="2">NFS server</td>
+
+          <td>NFS client</td>
+        </tr>
+
+        <tr>
+          <td>Kerberos Ticket Server</td>
+          <td>Kerberos Admin Server</td>
+
+          <td>Kerberos client APIs</td>
+        </tr>
+
+        <tr>
+          <td colspan="2">NTP server</td>
+          <td>NTP client APIs</td>
+        </tr>
+
+        <tr>
+          <td colspan="2">DNS server</td>
+          <td>DNS client APIs</td>
+        </tr>
+
+
+      </table>
+    </div>
+
+
     <h1>VirtualBox</h1>
     <h2>VBox From Scratch</h2>
     <p><i>This section takes its name from the <a href="http://linuxfromscratch.org">similarly-named Linux distribution</a></i>.</p>
