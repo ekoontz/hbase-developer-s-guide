@@ -414,10 +414,16 @@ ekoontz@ubuntu:~$ zookeeper/bin/zkCli.sh -server zookeeper rmr /hbase
 	to the <code>src/tests</code> directory, and to make sure
 	existing tests pass, using <code>mvn test</code>.</p>
 
-	<p>Let's say you've just added a new class, <code>org.apache.hadoop.hbase.ipc.foo</code>. Your test should probably go in <code>hbase/src/test/java/ipc/TestFoo.java</code>. You'll be iteratively running your test and want to only run that test until it's ready to commit. To cause Maven to only run your test, you would do:</p>
+	<p>Let's say you've just added a new
+	class, <code>org.apache.hadoop.hbase.ipc.foo</code>. Your test
+	should probably go
+	in <code>hbase/src/test/java/ipc/TestFoo.java</code>. You'll
+	be iteratively running your test and want to only run that
+	test until it's ready to commit. To cause Maven to only run
+	your test, you would do:</p>
 
-	<pre class="block">
-	  mvn -Dtest=TestFoo test
+	<pre class="block session">
+[~/hbase] $ <span class="input">mvn -Dtest=TestFoo test</span>
 	</pre>
 
 	<h2>Using EC2 for testing</h2>
@@ -426,6 +432,29 @@ ekoontz@ubuntu:~$ zookeeper/bin/zkCli.sh -server zookeeper rmr /hbase
 	(or better) instance.</p>
 
         <h1>Common Problems and How to Solve Them</h1>
+
+        <h2>Interactions with debugger: Pausing and Restarting HBase Processes</h2>
+
+        <h3>Regionserver</h3>
+
+        <p>If you attach to a running regionserver with your debugger,
+        you might be stepping through the code for an extended amount
+        of time. This will exceed a certain timeout (zookeeper
+        lease(?)) and you'll make the master think you're dead.</p>
+
+        <p>When you try to continue, the regionserver will shut itself
+        down. You may find that the master shuts down too (need to
+        make sure about this). If this occurs you may find that
+        starting the master, then starting the regionserver, causes
+        the master to shut down. Then, you then start the master,
+        which shuts the regionserver down. The way out of this
+        deadlock is to reinitialize zookeeper:</p>
+
+	<pre class="block session">
+[~/hbase] $ <span class="input">alias zkrm=&quot;~/zookeeper/bin/zkCli.sh -server zookeeper rmr /hbase&quot;</span>
+[~/hbase] $ <span class="input">zkrm</span>
+	</pre>
+
 
         <h2>HDFS</h2>
 
@@ -441,13 +470,13 @@ ekoontz@ubuntu:~$ zookeeper/bin/zkCli.sh -server zookeeper rmr /hbase
           Here's a screenshot showing output from such a situation:
         </p>
         
-        <a href="inconsistentfsstate.png"><img src="inconsistentfsstate.png"/></a>
+        <a href="inconsistentfsstate.png"><img width="75%" src="inconsistentfsstate.png"/></a>
 
         <h4>Solution</h4>
 
         <p><code>rm -rf /tmp/hadoop-$USER</code></p>
 
-        <h3>Hadoop Filesystem <code>'Incompatible build' errors at startup</code></h3>
+        <h3>Hadoop Filesystem <code>'Incompatible build'</code> errors at startup</h3>
 
         <h4>Solution</h4>
 
