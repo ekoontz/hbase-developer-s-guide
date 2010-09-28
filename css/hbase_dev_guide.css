@@ -5,13 +5,16 @@ div {
 div.figure {
     width:80%;
     margin-left:10%;
-    border:1px dashed green;
     padding:5px;
 }
 
 div.figure table {
     width:98%;
     text-align:center;
+}
+
+div.figure td {
+    border:1px solid black;
 }
 
 /* gradual shading */
