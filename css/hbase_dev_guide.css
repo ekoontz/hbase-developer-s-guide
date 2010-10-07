@@ -1,4 +1,4 @@
-div {
+div,table {
     float:left;
 }
 
@@ -126,6 +126,7 @@ pre.session {
 }
 
 img {
+    float:left;
     margin:1em;
 }
 
@@ -136,4 +137,20 @@ span.output {
 
 span.input {
     font-weight:bold;
+}
+
+div.halfpage {
+    float:left;
+    overflow:auto;
+    height:30em;
+    padding:0;
+}
+
+table.references {
+    width:90%;
+    margin-left:5%;
+}
+
+table.references th {
+    text-align:left;
 }
