@@ -68,7 +68,59 @@
     </div>
 
 
-    <h1>VirtualBox</h1>
+    <h1>Desktop setup</h1>
+
+    <p>I find that, since I have so many terminal windows open on my desktop, I like to use colors to distinguish between them.</p>
+
+    <div class="screenshot">
+      <a href="terminal_colors.png">
+        <img width="50%" src="terminal_colors.png"/>
+      </a>
+    </div>
+
+    <p>Here's a table enumerating my terminal window role =&gt; &lt;role,command&gt; associations</p>
+    <div class="figure">
+      <table>
+        <tr>
+          <th>role</th>
+          <th>color</th>
+          <th>command</th>
+        </tr>
+        <tr>
+          <td>regionserver</td>
+          <td class="sampletxt regionserver">text</td>
+          <td class="sampletxt regionserver">ssh ubuntu.foofers.org "cd ~/hbase && bin/hbase regionserver start"</td>
+        </tr>
+        <tr>
+          <td>master</td>
+          <td class="sampletxt master">text</td>
+          <td class="sampletxt master">ssh ubuntu.foofers.org "cd ~/hbase && bin/hbase master start"</td>
+        </tr>
+        <tr>
+          <td>zookeeper shell</td>
+          <td class="sampletxt zookeeper">text</td>
+          <td class="sampletxt zookeeper"></td>
+        </tr>
+        <tr>
+          <td>hbase shell</td>
+          <td class="sampletxt hbaseshell">text</td>
+          <td class="sampletxt hbaseshell">ssh ubuntu.foofers.org "cd ~/hbase && bin/hbase shell"</td>
+        </tr>
+        <tr>
+          <td>Maven</td>
+          <td class="sampletxt maven">text</td>
+          <td class="sampletxt maven">cd ~/hbase && bash</td>
+        </tr>
+        <tr>
+          <td>Git client</td>
+          <td class="sampletxt git">text</td>
+          <td class="sampletxt git"></td>
+        </tr>
+      </table>
+    </div>
+
+
+    <h1>VirtualBox Setup</h1>
     <h2>VBox From Scratch</h2>
     <p><i>This section takes its name from the <a href="http://linuxfromscratch.org">similarly-named Linux distribution</a></i>.</p>
     <p>
@@ -177,10 +229,11 @@
     Kerberos server-related software installed (see <a href="#masterrole">Dependencies/Master role</a>).
     </p>
 
-    <img src="realm_servers.png"/>
-    <img src="realm.png"/>
-    <img src="admin_server.png"/>
-    
+    <div class="screenshot">
+      <img src="realm_servers.png"/>
+      <img src="realm.png"/>
+      <img src="admin_server.png"/>
+    </div>
     <h3>Clients</h3>
     <p>Do this on all machines in your cluster that you will host your
     datanodes and regionservers.</p>

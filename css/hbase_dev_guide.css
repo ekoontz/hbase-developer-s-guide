@@ -167,3 +167,30 @@ div.screenshot {
     overflow:auto;
     height: 20em;
 }
+
+td.sampletxt {
+    padding:1em;
+    text-align:left;
+    font-family:monospace;
+}
+
+td.master {
+    background: #bad8d8;
+    color:#000000;
+}
+td.regionserver {
+    background: #bad8d8;
+    color:#000000;
+}
+td.hbaseshell {
+    background: #d9d9d5;
+    color:#00000;
+}
+td.maven {
+    background: #006633;
+    color:#ffff99;
+}
+td.git {
+    background: #000000;
+    color:#00ff00;    
+}
