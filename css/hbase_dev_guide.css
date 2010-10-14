@@ -154,3 +154,16 @@ table.references {
 table.references th {
     text-align:left;
 }
+
+div.gist {
+    margin-left:5%;
+    width:90%;
+    overflow:auto;
+    height: 20em;
+}
+
+div.screenshot {
+    margin-left:5%;
+    overflow:auto;
+    height: 20em;
+}

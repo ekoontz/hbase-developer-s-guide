@@ -9,7 +9,7 @@
     <title>HBase Dev Guide</title>
   </head>
   <body>
-    <h1 "text-align:center;width:100%;float:left">HBase Dev Guide</h1>
+    <h1 style="text-align:center;width:100%;float:left">HBase Dev Guide</h1>
     <h4>Author: Eugene Koontz et. al.</h4>
     <h1>Introduction</h1>
     <p>This guide is intended to help you get started with developing
@@ -31,7 +31,6 @@
         </tr>
         <tr>
           <td colspan="2">HBase master</td>
-
           <td>HBase regionserver</td>
         </tr>
         <tr>
@@ -337,6 +336,14 @@ ekoontz@ekoontz:~$
 	fi
       </pre>
 
+      <h2 id="config">Configuration settings</h2>
+     
+
+    <p>Please see the following gist which shows configuration changes for both hbase-site.xml and hbase-env.sh.</p>
+    <div class="gist">
+      <script src="http://gist.github.com/626611.js"> </script>
+    </div>
+
       <h1>Development Cycle</h1>
       
       <p>Your development session with Hbase might look something like
@@ -633,7 +640,9 @@ ekoontz@ubuntu:~/hbase$
           Here's a screenshot showing output from such a situation:
         </p>
         
-        <a href="inconsistentfsstate.png"><img width="75%" src="inconsistentfsstate.png"/></a>
+        <div class="screenshot">
+          <a href="inconsistentfsstate.png"><img width="75%" src="inconsistentfsstate.png"/></a>
+        </div>
 
         <h4>Solution</h4>
 
@@ -659,6 +668,19 @@ ekoontz@ubuntu:~/hbase$
 
         <p>On the datanode, shutdown the datanode process and do: <code>rm -rf /tmp/hadoop-$USER</code></p>
 
+        <h2>Master-specific startup problems</h2>
+
+        <h3>Couldnt start ZK at requested address of 2181, instead got: 2182. Aborting. Why? Because clients (eg shell) wont be able to find this ZK quorum</h3>
+
+        <p>Please see the gist above in the section <a href="#config">Configuration settings</a> which
+        fixes this by setting <tt>hbase.zookeeper.quorum</tt>.</p>
+
+        <h2>Region-specific startup problems</h2>
+
+        <h3>regionserver.HRegionServerCommandLine: Not starting a distinct region server because hbase.cluster.distributed is false</h3>
+        <p>Please see the gist above in the section <a href="#config">Configuration settings</a> which
+        fixes this by setting <tt>hbase.cluster.distributed</tt> to <tt>true</tt>.</p>
+          
         <h1>References</h1>
         <table class="references">
           <tr>
